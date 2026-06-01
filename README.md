@@ -35,7 +35,7 @@ BatchWeaver itself is read-only. It does not sign or broadcast transactions.
 ## Install from GitHub
 
 ```bash
-git clone <YOUR_GITHUB_REPO_URL>
+git clone https://github.com/comzzy-comzzy/batchweaver.git
 cd batchweaver
 npm install
 npm run build
@@ -70,7 +70,7 @@ batchweaver profile examples/testnet-plan.json
 
 ## Quick start
 
-Run the bundled testnet example:
+Run the bundled testnet example. This does not send transactions; it only reads the plan and prints the safest parallel batches.
 
 ```bash
 npm run dev -- profile examples/testnet-plan.json
@@ -89,6 +89,17 @@ Unknown access sets: 0
 ```
 
 The two Alice transfers conflict because both write Alice's token balance. The Bob approval can be placed in the same batch as one of those transfers because it writes a different allowance slot.
+
+## Testnet and mainnet support
+
+BatchWeaver is built once with `npm run build`. The same CLI works for Pharos testnet and Pharos mainnet.
+
+The network is selected by the JSON plan you pass in:
+
+- `examples/testnet-plan.json` uses `"chain": "pharos-testnet"`.
+- `examples/mainnet-plan.json` uses `"chain": "pharos-mainnet"`.
+
+BatchWeaver is read-only. It does not deploy contracts, sign transactions, or broadcast transactions on either network. When you add `--estimate-gas`, it only asks the configured RPC to estimate gas.
 
 ## Use on Pharos testnet
 
@@ -132,20 +143,15 @@ If your RPC URL is already inside the JSON plan, you can omit `--rpc`.
 
 ## Use on Pharos mainnet
 
-1. Create a mainnet plan file:
+1. Open `examples/mainnet-plan.json`.
 
-```bash
-cp examples/testnet-plan.json examples/mainnet-plan.json
-```
-
-2. Edit `examples/mainnet-plan.json`:
+2. Replace the placeholder RPC URL if you want live gas estimates:
 
 ```json
 {
   "name": "BatchWeaver Pharos mainnet plan",
   "chain": "pharos-mainnet",
-  "rpcUrl": "https://YOUR_MAINNET_RPC_URL",
-  "transactions": []
+  "rpcUrl": "https://YOUR_MAINNET_RPC_URL"
 }
 ```
 
