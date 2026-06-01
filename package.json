@@ -1,0 +1,35 @@
+{
+  "name": "batchweaver",
+  "version": "0.1.0",
+  "description": "Pharos-native transaction conflict profiler and parallel batch planner for AI agents.",
+  "type": "module",
+  "bin": {
+    "batchweaver": "dist/src/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "check": "npm run build && npm test",
+    "dev": "tsx src/cli.ts"
+  },
+  "keywords": [
+    "pharos",
+    "agent-skill",
+    "parallel-execution",
+    "evm",
+    "transaction-profiler"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^14.0.2",
+    "ethers": "^6.15.0",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.14"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "Explicit access set example",
+  "chain": "pharos-testnet",
+  "transactions": [
+    {
+      "id": "vault-deposit-1",
+      "description": "Custom vault deposit touching totalAssets and user shares.",
+      "access": [
+        {
+          "contract": "0xVault",
+          "slot": "totalAssets",
+          "mode": "write",
+          "reason": "deposit increases vault assets"
+        },
+        {
+          "contract": "0xVault",
+          "slot": "shares:0xAlice",
+          "mode": "write",
+          "reason": "deposit mints shares"
+        }
+      ]
+    },
+    {
+      "id": "vault-deposit-2",
+      "description": "Conflicts with vault-deposit-1 on totalAssets.",
+      "access": [
+        {
+          "contract": "0xVault",
+          "slot": "totalAssets",
+          "mode": "write"
+        },
+        {
+          "contract": "0xVault",
+          "slot": "shares:0xBob",
+          "mode": "write"
+        }
+      ]
+    },
+    {
+      "id": "profile-read",
+      "description": "Independent read from another contract.",
+      "access": [
+        {
+          "contract": "0xProfileRegistry",
+          "slot": "profile:0xAlice",
+          "mode": "read"
+        }
+      ]
+    }
+  ]
+}
